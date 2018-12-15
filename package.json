@@ -1,6 +1,6 @@
 {
-  "name": "react-auth-test",
-  "homepage": "https://github.io/CP92/react-auth-test< YOUR GH USERNAME >/< GH REPO NAME >",
+  "name": "FretReact",
+  "homepage": "https://www.paplog.run/FretReact",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
