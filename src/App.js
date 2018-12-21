@@ -9,6 +9,24 @@ import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 
+import FretBoard from './FretBoard.js'
+
+const defaultTuning = [
+  {
+    id: 'none',
+    title: 'Standard E',
+    strings: 6,
+    notes: [
+      ['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#'],
+      ['B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#'],
+      ['G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#'],
+      ['D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#'],
+      ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#'],
+      ['E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#']
+    ]
+  }
+]
+
 class App extends Component {
   constructor () {
     super()
@@ -54,7 +72,17 @@ class App extends Component {
           <AuthenticatedRoute user={user} path='/change-password' render={() => (
             <ChangePassword flash={this.flash} user={user} />
           )} />
+
+          {defaultTuning.map(tuning => (
+            <FretBoard 
+              key={tuning.id}
+              title={tuning.title}
+              strings={tuning.strings}
+              notes={tuning.notes}
+            />
+          ))}  
         </main>
+        
       </React.Fragment>
     )
   }
