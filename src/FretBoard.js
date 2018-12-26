@@ -106,10 +106,10 @@ class FretBoard extends Component {
           
         </Grid>
 
-        <button onClick={this.addString} type="button" className="btn btn-success btn-sm" id="add-string">
+        <button onClick={this.addString} type="button" className="btn btn-success btn-md" id="add-string">
           <span className="fas fa-plus-square" aria-hidden="true"></span> Add String
         </button>
-        <button onClick={this.removeString} type="button" className="btn btn-danger btn-sm float-right" id="remove-string">
+        <button onClick={this.removeString} type="button" className="btn btn-danger btn-md float-right" id="remove-string">
           <span className="fas fa-minus-square" aria-hidden="true"></span> Remove String
         </button>
       	
