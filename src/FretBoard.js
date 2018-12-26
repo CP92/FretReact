@@ -8,6 +8,8 @@ import MenuItem from 'react-bootstrap/lib/MenuItem'
 
 const noteToolBox = require('./notes.js')
 let context
+
+
 class FretBoard extends Component {
   constructor (props) {
   	super(props)
@@ -75,10 +77,11 @@ class FretBoard extends Component {
       	<h1>{title}</h1>
       	<Grid className="fretboard">
           {this.state.notes.map((set, rowIndex) => (
+            
             <Row key={`row-${rowIndex}`} id={`row-${rowIndex}`} className={`text-center show-grid ${rowIndex === this.state.notes.length - 1 ? 'last-row' : ''}` }>
               {set.map((note, colIndex) => (
                 <Col key={`fret-${rowIndex}-${colIndex}`} onClick={colIndex !== 0 ? this.fretClick : null} id={`fret-${rowIndex}-${colIndex}`} sx={1} className={colIndex === 0 ? 'tuner-box box text-center' : 'box text-center'}>
-                  {colIndex !== 0 ? <hr className="text-center center-block"/> : null}
+                  {colIndex !== 0 ? <hr style={{height: rowIndex + 1 + 'px'}} className="text-center center-block"/> : null}
                   {colIndex === 0 ? 
                     <DropdownButton noCaret title={note} key={`tuner-${rowIndex}`} id={`tuner-${rowIndex}`} className="text-center center-block">
                       <MenuItem eventKey={note} active >{note}</MenuItem>
@@ -95,7 +98,7 @@ class FretBoard extends Component {
                       <MenuItem onSelect={this.changeRow} eventKey={rowIndex + '-G '} >G</MenuItem>
                       <MenuItem onSelect={this.changeRow} eventKey={rowIndex + '-G#'} >G#</MenuItem>
                     </DropdownButton> : <span className="note">{note}</span>  }
-                  {colIndex !== 0 ? <hr className="text-center center-block"/> : null}  
+                  {colIndex !== 0 ? <hr style={{height: rowIndex + 1 + 'px'}} className="text-center center-block"/> : null}  
                 </Col>
               ))} 
             </Row>
