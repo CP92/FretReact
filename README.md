@@ -1,10 +1,12 @@
 # FretReact
 
+Hosted on [Github Pages](https://www.paplog.run/FretReact/#/)
+
 ## The details
 
 FretReact is a redesign of my [fretmapper](https://github.com/CP92/fret-mapper-client) web app.
 
-This app is used to help visualize the fretboard of a guitar. The dropdown menus on the left represent the open string notes and depending on what note these are set to will change the notes on the right representing the notes at the individual frets.
+This app is used to help visualize the fretboard of a guitar. The dropdown menus on the left represent the open string notes and depending on what note these are set to will change the notes on the right representing the notes at the individual frets. The app also allows you to add or subtract strings in order to support a variety of guitars and bass. When adding a string the new string will automatically be set to a fourth lower than the previous lowest string. 
 
 The main differences:
 1. FretReact is built using the React framework from the ground up.
