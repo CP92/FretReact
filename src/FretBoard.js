@@ -7,7 +7,7 @@ import MenuItem from 'react-bootstrap/lib/MenuItem'
 
 
 const noteToolBox = require('./notes.js')
-let context
+
 
 
 class FretBoard extends Component {
@@ -20,23 +20,24 @@ class FretBoard extends Component {
 
     this.fretClick = this.fretClick.bind(this)
     this.changeRow = this.changeRow.bind(this)
-    this.loadAudio = this.loadAudio.bind(this)
+    
     this.addString = this.addString.bind(this)
     this.removeString = this.removeString.bind(this)
 
   }
 
-  loadAudio () {
-    try {window.AudioContext = window.AudioContext || window.webkitAudioContext
-      context = new AudioContext()
-    }
-    catch (e) {
+  
 
-    }
-  }
+  fretClick (e, id) {
+    id = id.split('-')
+    const noteClicked = e.target.innerText
+    let num = 11 - id[1]
+    const string = parseInt(id[0])
+    num = num + (12 * id[0])
+    //console.log(string)
+    const noteToPlay = noteToolBox.getNextFreq(string, num, noteClicked, this.state.notes)
 
-  fretClick (e) {
-    console.log(e.target.innerText)
+    noteToolBox.loadAudio(noteToPlay)
   }
 
   changeRow (e) {
@@ -80,7 +81,7 @@ class FretBoard extends Component {
             
             <Row key={`row-${rowIndex}`} id={`row-${rowIndex}`} className={`text-center show-grid ${rowIndex === this.state.notes.length - 1 ? 'last-row' : ''}` }>
               {set.map((note, colIndex) => (
-                <Col key={`fret-${rowIndex}-${colIndex}`} onClick={colIndex !== 0 ? this.fretClick : null} id={`fret-${rowIndex}-${colIndex}`} sx={1} className={colIndex === 0 ? 'tuner-box box text-center' : 'box text-center'}>
+                <Col key={`fret-${rowIndex}-${colIndex}`} onClick={(e) => this.fretClick(e, `${rowIndex}-${colIndex}`)} id={`fret-${rowIndex}-${colIndex}`} sx={1} className={colIndex === 0 ? 'tuner-box box text-center' : 'box text-center'}>
                   {colIndex !== 0 ? <hr style={{height: rowIndex + 1 + 'px'}} className="text-center center-block"/> : null}
                   {colIndex === 0 ? 
                     <DropdownButton noCaret title={note} key={`tuner-${rowIndex}`} id={`tuner-${rowIndex}`} className="text-center center-block">
