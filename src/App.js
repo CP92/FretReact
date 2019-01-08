@@ -9,6 +9,9 @@ import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 
+import DropdownButton from 'react-bootstrap/lib/DropdownButton'
+import MenuItem from 'react-bootstrap/lib/MenuItem'
+
 import FretBoard from './FretBoard.js'
 
 const defaultTuning = [
@@ -34,8 +37,16 @@ class App extends Component {
     this.state = {
       user: null,
       flashMessage: '',
-      flashType: null
+      flashType: null,
+      mode: 'Sound'
     }
+    this.setMode = this.setMode.bind(this)
+
+  }
+
+  setMode (e) {
+    this.setState({mode: e})
+    console.log(e)
   }
 
   setUser = user => this.setState({ user })
@@ -73,6 +84,14 @@ class App extends Component {
                     <AuthenticatedRoute user={user} path='/change-password' render={() => (
                       <ChangePassword flash={this.flash} user={user} />
                     )} /> */}
+          
+          <DropdownButton noCaret title={this.state.mode} key='mode-change' id='mode-change' className="text-center center-block">
+            
+            <MenuItem onSelect={this.setMode} eventKey={'Sound'} >Sound</MenuItem>
+            <MenuItem onSelect={this.setMode} eventKey={'Highlight'} >Highlight</MenuItem>
+            
+          </DropdownButton> 
+                    
 
           {defaultTuning.map(tuning => (
             <FretBoard 
@@ -80,6 +99,7 @@ class App extends Component {
               title={tuning.title}
               strings={tuning.strings}
               notes={tuning.notes}
+              mode={this.state.mode}
             />
           ))}  
         </main>
