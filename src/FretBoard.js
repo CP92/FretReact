@@ -52,7 +52,7 @@ class FretBoard extends Component {
       this.setState({selectedRow: selectedRow})
     }
     console.log(selectedNotes)
-    console.log(selectedRow)
+    //console.log(selectedRow)
 
     const hasMultiple = (new Set(selectedRow)).size !== selectedRow.length
     const chord = noteToolBox.getChordName(selectedNotes)

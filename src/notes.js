@@ -9,13 +9,13 @@ const chords = {
     dis: [4, 7]   
   },
   Minor: {
-    dis: [3, 3]
+    dis: [3, 7]
   },
   Diminished: {
-    dis: [3, 2]
+    dis: [3, 6]
   },
   Augmented: {
-    dis: [4, 4]
+    dis: [4, 8]
   }
 }
 
@@ -25,36 +25,78 @@ const getChordName = function (noteArray) {
   let chordName  
   // Attempts to see if the notes are a power chord
   if (noteArray.length === 2) {
+    console.log('testing power chord')
     noteArray.forEach(function (note, index) {
       if (chordMusic[chordMusic.indexOf(note) + chords.powerChord.dis] === noteArray[(index + 1) % noteArray.length]) {
         chordName = note + ' Power chord'
+        
       }       
     })
+    return chordName
   } else if (noteArray.length === 3) {
-    const match = []
-    noteArray.forEach(function(rootNote) {  
-      noteArray.forEach(function(note, index) {
-        const i = (index + 1) % noteArray.length
-        if (chordMusic[chordMusic.indexOf(rootNote) + chords.Major.dis[0]] === noteArray[i]) {
-          match.push(noteArray[i])
-          if (match.length === 2) {
-            match.push(rootNote)
-          }           
-        } else if (chordMusic[chordMusic.indexOf(rootNote) + chords.Major.dis[1]] === noteArray[i]) {
-          match.push(noteArray[i])
-          if (match.length === 2) {
-            match.push(rootNote)
-          }
-        } 
-      })
-    })
+    let match
+    
+    match = checkThreeNoteChord(noteArray, 'Major')
+    console.log(match)
     if (match.length === 3) {
       chordName = match.pop() + ' Major'
+      return chordName
+    } else {
+      match = checkThreeNoteChord(noteArray, 'Minor')
     }
+    console.log(match)
+    if (match.length === 3) {
+      chordName = match.pop() + ' Minor'
+      return chordName
+    } else {
+      match = checkThreeNoteChord(noteArray, 'Diminished') 
+    }
+    console.log(match)
+    if (match.length === 3) {
+      chordName = match.pop() + ' Diminished'
+      return chordName
+    } else {
+      match = checkThreeNoteChord(noteArray, 'Augmented') 
+    }
+    console.log(match)
+    if (match.length === 3) {
+      chordName = match.pop() + ' Augmented'
+      return chordName
+    }
+
+
     
   }
 
-  return chordName
+  
+}
+
+const checkThreeNoteChord = function (noteArray, chord) {
+  let match
+  noteArray.every(function(rootNote) {  
+    
+    match = []
+    match = noteArray.filter(function(note, index) {
+      const i = (index + 1) % noteArray.length
+      if (chordMusic[chordMusic.indexOf(rootNote) + chords[chord].dis[0]] === noteArray[i]) {
+        console.log(noteArray[i])
+        console.log(match)
+        return noteArray[i]
+                   
+      } else if (chordMusic[chordMusic.indexOf(rootNote) + chords[chord].dis[1]] === noteArray[i]) {
+        console.log(noteArray[i])
+        console.log(match)
+        return noteArray[i]
+        
+      } 
+    })
+    console.log(match)
+    if (match.length === 2) {
+      match.push(rootNote)
+      return false
+    } else return true
+  })
+  return match
 }
 
 const getRowNotes = function (note) {

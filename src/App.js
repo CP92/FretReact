@@ -38,7 +38,7 @@ class App extends Component {
       user: null,
       flashMessage: '',
       flashType: null,
-      mode: 'Sound',
+      mode: 'Highlight',
       chordName: ''
     }
     this.setMode = this.setMode.bind(this)
