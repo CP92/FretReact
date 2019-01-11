@@ -25,7 +25,7 @@ class FretboardString extends Component {
   }
 
   render () {
-  	const { set, row, changeRowHandler, last, mode, playNoteHandler } = this.props
+  	const { set, row, changeRowHandler, last, mode, playNoteHandler, addSelectedHandler } = this.props
     
     return (
       <Row key={`row-${row}`} id={`row-${row}`} className={`text-center show-grid ${last ? 'last-row' : ''}` }>
@@ -35,6 +35,7 @@ class FretboardString extends Component {
             colIndex={colIndex}
             changeRowHandler={changeRowHandler}
             playNoteHandler={playNoteHandler}
+            addSelectedHandler={addSelectedHandler}
             mode={mode}
             row={row}
             key={colIndex}

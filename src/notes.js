@@ -1,4 +1,61 @@
 const musicNotes = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
+const chordMusic = ['A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B', 'C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#']
+
+const chords = {
+  powerChord: {
+    dis: 7
+  },
+  Major: {
+    dis: [4, 7]   
+  },
+  Minor: {
+    dis: [3, 3]
+  },
+  Diminished: {
+    dis: [3, 2]
+  },
+  Augmented: {
+    dis: [4, 4]
+  }
+}
+
+const getChordName = function (noteArray) {
+  console.log(noteArray)
+
+  let chordName  
+  // Attempts to see if the notes are a power chord
+  if (noteArray.length === 2) {
+    noteArray.forEach(function (note, index) {
+      if (chordMusic[chordMusic.indexOf(note) + chords.powerChord.dis] === noteArray[(index + 1) % noteArray.length]) {
+        chordName = note + ' Power chord'
+      }       
+    })
+  } else if (noteArray.length === 3) {
+    const match = []
+    noteArray.forEach(function(rootNote) {  
+      noteArray.forEach(function(note, index) {
+        const i = (index + 1) % noteArray.length
+        if (chordMusic[chordMusic.indexOf(rootNote) + chords.Major.dis[0]] === noteArray[i]) {
+          match.push(noteArray[i])
+          if (match.length === 2) {
+            match.push(rootNote)
+          }           
+        } else if (chordMusic[chordMusic.indexOf(rootNote) + chords.Major.dis[1]] === noteArray[i]) {
+          match.push(noteArray[i])
+          if (match.length === 2) {
+            match.push(rootNote)
+          }
+        } 
+      })
+    })
+    if (match.length === 3) {
+      chordName = match.pop() + ' Major'
+    }
+    
+  }
+
+  return chordName
+}
 
 const getRowNotes = function (note) {
   note = note.trim()
@@ -187,9 +244,13 @@ const loadAudio = function (tone) {
   }
 }
 
+
+
+
 module.exports = {
   getRowNotes,
   getFourth,
   getNextFreq,
-  loadAudio
+  loadAudio,
+  getChordName
 }

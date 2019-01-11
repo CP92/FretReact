@@ -38,15 +38,20 @@ class App extends Component {
       user: null,
       flashMessage: '',
       flashType: null,
-      mode: 'Sound'
+      mode: 'Sound',
+      chordName: ''
     }
     this.setMode = this.setMode.bind(this)
+    this.updateChordName = this.updateChordName.bind(this)
 
   }
 
   setMode (e) {
     this.setState({mode: e})
-    console.log(e)
+  }
+
+  updateChordName (name) {
+    this.setState({chordName: 'Chord: ' + name})
   }
 
   setUser = user => this.setState({ user })
@@ -90,16 +95,18 @@ class App extends Component {
             <MenuItem onSelect={this.setMode} eventKey={'Sound'} >Sound</MenuItem>
             <MenuItem onSelect={this.setMode} eventKey={'Highlight'} >Highlight</MenuItem>
             
-          </DropdownButton> 
-                    
+          </DropdownButton>
+
+          <h1>{}</h1>                    
 
           {defaultTuning.map(tuning => (
             <FretBoard 
               key={tuning.id}
-              title={tuning.title}
+              title={tuning.title + '   ' + this.state.chordName}
               strings={tuning.strings}
               notes={tuning.notes}
               mode={this.state.mode}
+              chordNameHandler={this.updateChordName}
             />
           ))}  
         </main>

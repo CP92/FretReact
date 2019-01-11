@@ -20,7 +20,8 @@ class FretBoard extends Component {
 
     this.state = {
       notes: props.notes,
-      selected: false
+      selected: [],
+      selectedRow: []
     }
 
     this.playNote = this.playNote.bind(this)
@@ -28,6 +29,43 @@ class FretBoard extends Component {
     
     this.addString = this.addString.bind(this)
     this.removeString = this.removeString.bind(this)
+
+    this.addSelected = this.addSelected.bind(this)
+
+  }
+
+  addSelected (row, note, selected) {
+    const selectedNotes = this.state.selected
+    const selectedRow = this.state.selectedRow
+    console.log(selectedNotes)
+    if (selected) {
+      selectedNotes.push(note)
+      console.log(selectedNotes)
+      selectedRow.push(row)
+      this.setState({selected: selectedNotes})
+      this.setState({selectedRow: selectedRow})
+
+    } else {
+      selectedRow.splice(selectedNotes.indexOf(note), 1)
+      selectedNotes.splice(selectedNotes.indexOf(note), 1)
+      this.setState({selected: selectedNotes})
+      this.setState({selectedRow: selectedRow})
+    }
+    console.log(selectedNotes)
+    console.log(selectedRow)
+
+    const hasMultiple = (new Set(selectedRow)).size !== selectedRow.length
+    const chord = noteToolBox.getChordName(selectedNotes)
+    console.log(chord)
+
+
+    if (hasMultiple) {
+      this.props.chordNameHandler('Invalid')
+    } else if (chord === undefined) {
+      this.props.chordNameHandler('')
+    } else {
+      this.props.chordNameHandler(chord)
+    }
 
   }
 
@@ -87,6 +125,7 @@ class FretBoard extends Component {
               row={rowIndex}
               changeRowHandler={this.changeRow}
               playNoteHandler={this.playNote}
+              addSelectedHandler={this.addSelected}
               last={rowIndex === this.state.notes.length -1 ? true : false}
               mode={mode}
               key={rowIndex}

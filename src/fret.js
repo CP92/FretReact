@@ -25,16 +25,19 @@ class Fret extends Component {
 
   }
 
-  changeSelect () {
+  changeSelect (row, note, handler) {
+    const selected = !this.state.selected
     this.setState({selected: !this.state.selected})
+    console.log(note)
+    handler(row, note, selected)
   }
 
   render () {
-    const { note, colIndex, row, mode, changeRowHandler, playNoteHandler } = this.props
+    const { note, colIndex, row, mode, changeRowHandler, playNoteHandler, addSelectedHandler } = this.props
     
     return (
       
-      <Col key={`fret-${row}-${colIndex}`} onClick={mode === 'Sound' ? (e) => playNoteHandler(e, `${row}-${colIndex}`) : this.changeSelect} id={`fret-${row}-${colIndex}`} sx={1} className={colIndex === 0 ? 'tuner-box box text-center' : 'box text-center'}>
+      <Col key={`fret-${row}-${colIndex}`} onClick={mode === 'Sound' ? (e) => playNoteHandler(e, `${row}-${colIndex}`) : (e) => this.changeSelect(row, e.target.innerText, addSelectedHandler)} id={`fret-${row}-${colIndex}`} sx={1} className={colIndex === 0 ? 'tuner-box box text-center' : 'box text-center'}>
         {colIndex !== 0 ? <hr style={{height: row + 1 + 'px'}} className="text-center center-block"/> : null}
         {colIndex === 0 ? 
           <DropdownButton noCaret title={note} key={`tuner-${row}`} id={`tuner-${row}`} className="text-center center-block">
