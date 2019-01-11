@@ -9,6 +9,9 @@ import SignIn from './auth/components/SignIn'
 import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 
+import DropdownButton from 'react-bootstrap/lib/DropdownButton'
+import MenuItem from 'react-bootstrap/lib/MenuItem'
+
 import FretBoard from './FretBoard.js'
 
 const defaultTuning = [
@@ -34,8 +37,21 @@ class App extends Component {
     this.state = {
       user: null,
       flashMessage: '',
-      flashType: null
+      flashType: null,
+      mode: 'Highlight',
+      chordName: ''
     }
+    this.setMode = this.setMode.bind(this)
+    this.updateChordName = this.updateChordName.bind(this)
+
+  }
+
+  setMode (e) {
+    this.setState({mode: e})
+  }
+
+  updateChordName (name) {
+    this.setState({chordName: 'Chord: ' + name})
   }
 
   setUser = user => this.setState({ user })
@@ -73,13 +89,24 @@ class App extends Component {
                     <AuthenticatedRoute user={user} path='/change-password' render={() => (
                       <ChangePassword flash={this.flash} user={user} />
                     )} /> */}
+          
+          <DropdownButton noCaret title={this.state.mode} key='mode-change' id='mode-change' className="text-center center-block">
+            
+            <MenuItem onSelect={this.setMode} eventKey={'Sound'} >Sound</MenuItem>
+            <MenuItem onSelect={this.setMode} eventKey={'Highlight'} >Highlight</MenuItem>
+            
+          </DropdownButton>
+
+          <h1>{}</h1>                    
 
           {defaultTuning.map(tuning => (
             <FretBoard 
               key={tuning.id}
-              title={tuning.title}
+              title={tuning.title + '   ' + this.state.chordName}
               strings={tuning.strings}
               notes={tuning.notes}
+              mode={this.state.mode}
+              chordNameHandler={this.updateChordName}
             />
           ))}  
         </main>
