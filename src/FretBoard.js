@@ -37,10 +37,10 @@ class FretBoard extends Component {
   addSelected (row, note, selected) {
     const selectedNotes = this.state.selected
     const selectedRow = this.state.selectedRow
-    console.log(selectedNotes)
+    //console.log(selectedNotes)
     if (selected) {
       selectedNotes.push(note)
-      console.log(selectedNotes)
+      //console.log(selectedNotes)
       selectedRow.push(row)
       this.setState({selected: selectedNotes})
       this.setState({selectedRow: selectedRow})
@@ -51,12 +51,12 @@ class FretBoard extends Component {
       this.setState({selected: selectedNotes})
       this.setState({selectedRow: selectedRow})
     }
-    console.log(selectedNotes)
+    //console.log(selectedNotes)
     //console.log(selectedRow)
 
     const hasMultiple = (new Set(selectedRow)).size !== selectedRow.length
     const chord = noteToolBox.getChordName(selectedNotes)
-    console.log(chord)
+    //console.log(chord)
 
 
     if (hasMultiple) {

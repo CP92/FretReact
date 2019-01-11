@@ -20,12 +20,12 @@ const chords = {
 }
 
 const getChordName = function (noteArray) {
-  console.log(noteArray)
+  //console.log(noteArray)
 
   let chordName  
   // Attempts to see if the notes are a power chord
   if (noteArray.length === 2) {
-    console.log('testing power chord')
+    //console.log('testing power chord')
     noteArray.forEach(function (note, index) {
       if (chordMusic[chordMusic.indexOf(note) + chords.powerChord.dis] === noteArray[(index + 1) % noteArray.length]) {
         chordName = note + ' Power chord'
@@ -37,28 +37,28 @@ const getChordName = function (noteArray) {
     let match
     
     match = checkThreeNoteChord(noteArray, 'Major')
-    console.log(match)
+    //console.log(match)
     if (match.length === 3) {
       chordName = match.pop() + ' Major'
       return chordName
     } else {
       match = checkThreeNoteChord(noteArray, 'Minor')
     }
-    console.log(match)
+    //console.log(match)
     if (match.length === 3) {
       chordName = match.pop() + ' Minor'
       return chordName
     } else {
       match = checkThreeNoteChord(noteArray, 'Diminished') 
     }
-    console.log(match)
+    //console.log(match)
     if (match.length === 3) {
       chordName = match.pop() + ' Diminished'
       return chordName
     } else {
       match = checkThreeNoteChord(noteArray, 'Augmented') 
     }
-    console.log(match)
+    //console.log(match)
     if (match.length === 3) {
       chordName = match.pop() + ' Augmented'
       return chordName
@@ -79,18 +79,18 @@ const checkThreeNoteChord = function (noteArray, chord) {
     match = noteArray.filter(function(note, index) {
       const i = (index + 1) % noteArray.length
       if (chordMusic[chordMusic.indexOf(rootNote) + chords[chord].dis[0]] === noteArray[i]) {
-        console.log(noteArray[i])
-        console.log(match)
+        //console.log(noteArray[i])
+        //console.log(match)
         return noteArray[i]
                    
       } else if (chordMusic[chordMusic.indexOf(rootNote) + chords[chord].dis[1]] === noteArray[i]) {
-        console.log(noteArray[i])
-        console.log(match)
+        //console.log(noteArray[i])
+        //console.log(match)
         return noteArray[i]
         
       } 
     })
-    console.log(match)
+    //console.log(match)
     if (match.length === 2) {
       match.push(rootNote)
       return false

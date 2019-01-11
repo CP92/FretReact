@@ -28,7 +28,7 @@ class Fret extends Component {
   changeSelect (row, note, handler) {
     const selected = !this.state.selected
     this.setState({selected: !this.state.selected})
-    console.log(note)
+    //console.log(note)
     handler(row, note, selected)
   }
 
