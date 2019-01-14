@@ -20,8 +20,15 @@ class FretboardString extends Component {
   	super(props)
 
     this.state = {
-     
+    	stringSelected: false
     }
+  }
+
+  setStringSelected (string) {
+  	console.log('string selected')
+  	string.setState(function (state){
+  	  		state.stringSelected = !string.state.stringSelected
+  	  		})
   }
 
   render () {
@@ -36,6 +43,9 @@ class FretboardString extends Component {
             changeRowHandler={changeRowHandler}
             playNoteHandler={playNoteHandler}
             addSelectedHandler={addSelectedHandler}
+            stringSelected={this.state.stringSelected}
+            stringSelectedHandler={this.setStringSelected}
+            string={this}
             mode={mode}
             row={row}
             key={colIndex}

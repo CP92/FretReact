@@ -46,13 +46,13 @@ class FretBoard extends Component {
       this.setState({selectedRow: selectedRow})
 
     } else {
-      selectedRow.splice(selectedNotes.indexOf(note), 1)
+      selectedRow.splice(selectedRow.indexOf(row), 1)
       selectedNotes.splice(selectedNotes.indexOf(note), 1)
       this.setState({selected: selectedNotes})
       this.setState({selectedRow: selectedRow})
     }
-    //console.log(selectedNotes)
-    //console.log(selectedRow)
+    console.log(selectedNotes)
+    console.log(selectedRow)
 
     const hasMultiple = (new Set(selectedRow)).size !== selectedRow.length
     const chord = noteToolBox.getChordName(selectedNotes)
@@ -60,7 +60,7 @@ class FretBoard extends Component {
 
 
     if (hasMultiple) {
-      this.props.chordNameHandler('Invalid')
+      this.props.chordNameHandler('Too many notes per string')
     } else if (chord === undefined) {
       this.props.chordNameHandler('')
     } else {
@@ -118,6 +118,7 @@ class FretBoard extends Component {
     return (
       <div>
       	<h1>{title}</h1>
+        
       	<Grid className="fretboard">
           {this.state.notes.map((set, rowIndex) => (
             <FretboardString 

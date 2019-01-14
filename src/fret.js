@@ -25,20 +25,32 @@ class Fret extends Component {
 
   }
 
-  changeSelect (row, note, handler) {
+  changeSelect (row, note, fretHandler, col, stringHandler, string) {
+    if (col === 0) {
+      stringHandler(string)
+    }
+
     const selected = !this.state.selected
     this.setState({selected: !this.state.selected})
     //console.log(note)
-    handler(row, note, selected)
+    fretHandler(row, note, selected)
   }
 
   render () {
-    const { note, colIndex, row, mode, changeRowHandler, playNoteHandler, addSelectedHandler } = this.props
-    
-    return (
+    const { note, colIndex, row, mode, changeRowHandler, playNoteHandler, addSelectedHandler, stringSelected, stringSelectedHandler, string } = this.props
+    let color
+    if (stringSelected) {
+      color = {backgroundColor: 'green',
+        height:  row + 1 + 'px'}
       
-      <Col key={`fret-${row}-${colIndex}`} onClick={mode === 'Sound' ? (e) => playNoteHandler(e, `${row}-${colIndex}`) : (e) => this.changeSelect(row, e.target.innerText, addSelectedHandler)} id={`fret-${row}-${colIndex}`} sx={1} className={colIndex === 0 ? 'tuner-box box text-center' : 'box text-center'}>
-        {colIndex !== 0 ? <hr style={{height: row + 1 + 'px'}} className="text-center center-block"/> : null}
+    } else {
+      color = {backgroundColor: '#c8bb93',
+        height:  row + 1 + 'px'}
+      
+    }
+    return (
+      <Col key={`fret-${row}-${colIndex}`} onClick={mode === 'Sound' ? (e) => playNoteHandler(e, `${row}-${colIndex}`) : (e) => this.changeSelect(row, note, addSelectedHandler, colIndex, stringSelectedHandler, string) } id={`fret-${row}-${colIndex}`} sx={1} className={colIndex === 0 ? 'tuner-box box text-center' : 'box text-center'}>
+        {colIndex !== 0 ? <hr style={color} className="text-center center-block"/> : null}
         {colIndex === 0 ? 
           <DropdownButton noCaret title={note} key={`tuner-${row}`} id={`tuner-${row}`} className="text-center center-block">
             <MenuItem eventKey={note} active >{note}</MenuItem>
@@ -55,7 +67,7 @@ class Fret extends Component {
             <MenuItem onSelect={changeRowHandler} eventKey={row + '-G '} >G</MenuItem>
             <MenuItem onSelect={changeRowHandler} eventKey={row + '-G#'} >G#</MenuItem>
           </DropdownButton> : <span className="note" style={this.state.selected ? {backgroundColor: 'green'} : {backgroundColor: 'yellow'}}>{note}</span> }
-        {colIndex !== 0 ? <hr style={{height: row + 1 + 'px'}} className="text-center center-block"/> : null}  
+        {colIndex !== 0 ? <hr style={color} className="text-center center-block"/> : null}  
       </Col>
              
     )

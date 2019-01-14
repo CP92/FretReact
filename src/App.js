@@ -90,7 +90,7 @@ class App extends Component {
                       <ChangePassword flash={this.flash} user={user} />
                     )} /> */}
           
-          <DropdownButton noCaret title={this.state.mode} key='mode-change' id='mode-change' className="text-center center-block">
+          <DropdownButton noCaret title={this.state.mode} key='mode-change' id='mode-change' className="text-center center-block pull-right">
             
             <MenuItem onSelect={this.setMode} eventKey={'Sound'} >Sound</MenuItem>
             <MenuItem onSelect={this.setMode} eventKey={'Highlight'} >Highlight</MenuItem>

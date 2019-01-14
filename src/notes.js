@@ -16,11 +16,38 @@ const chords = {
   },
   Augmented: {
     dis: [4, 8]
+  },
+  Major6th: {
+    dis: [4, 7, 9]
+  },
+  Minor6th: {
+    dis: [3, 7, 9]
+  },
+  Dominant7th: {
+    dis: [4, 7, 10]
+  },
+  Major7th: {
+    dis: [4, 7, 11]
+  },
+  Minor7th: {
+    dis: [3, 7, 10]
+  },
+  'MinorMajor7th': {
+    dis: [3, 7, 11]
+  },
+  Augmented7th: {
+    dis: [4, 8, 10]
+  },
+  Halfdiminished7th: {
+    dis: [3, 6, 10]
+  },
+  Diminished7th: {
+    dis: [3, 6, 9]
   }
 }
 
 const getChordName = function (noteArray) {
-  //console.log(noteArray)
+  console.log(noteArray)
 
   let chordName  
   // Attempts to see if the notes are a power chord
@@ -66,6 +93,62 @@ const getChordName = function (noteArray) {
 
 
     
+  } else if (noteArray.length === 4) {
+    let match
+    console.log(noteArray)
+    match = checkThreeNoteChord(noteArray, 'Major6th')
+    if (match.length === 4) {
+      chordName = match.pop() + ' Major 6th'
+      return chordName
+    } else {
+      match = checkThreeNoteChord(noteArray, 'Minor6th')
+    }
+    if(match.length === 4) {
+      chordName = match.pop() + ' Minor 6th'
+      return chordName
+    } else {
+      match = checkThreeNoteChord(noteArray, 'Dominant7th')
+    }
+    if (match.length === 4) {
+      chordName = match.pop() + ' Dominant 7th'
+      return chordName
+    } else {
+      match = checkThreeNoteChord(noteArray, 'Major7th')
+    }
+    if (match.length === 4) {
+      chordName = match.pop() + ' Major 7th'
+      return chordName
+    } else {
+      match = checkThreeNoteChord(noteArray, 'Minor7th') 
+    }
+    if (match.length === 4) {
+      chordName = match.pop() + ' Minor 7th'
+      return chordName
+    } else {
+      match = checkThreeNoteChord(noteArray, 'MinorMajor7th') 
+    }
+    if (match.length === 4) {
+      chordName = match.pop() + ' Minor Major 7th'
+      return chordName
+    } else {
+      match = checkThreeNoteChord(noteArray, 'Augmented7th') 
+    }
+    if (match.length === 4) {
+      chordName = match.pop() + ' Augmented 7th'
+      return chordName
+    } else {
+      match = checkThreeNoteChord(noteArray, 'Halfdiminished7th') 
+    }
+    if (match.length === 4) {
+      chordName = match.pop() + ' Half Diminished 7th'
+      return chordName
+    } else {
+      match = checkThreeNoteChord(noteArray, 'Diminished7th') 
+    }
+    if (match.length === 4) {
+      chordName = match.pop() + ' Diminished 7th'
+      return chordName
+    } 
   }
 
   
@@ -76,22 +159,31 @@ const checkThreeNoteChord = function (noteArray, chord) {
   noteArray.every(function(rootNote) {  
     
     match = []
+    let secondNote = false
+    let thirdNote = false
+    let fourthNote = false
     match = noteArray.filter(function(note, index) {
       const i = (index + 1) % noteArray.length
-      if (chordMusic[chordMusic.indexOf(rootNote) + chords[chord].dis[0]] === noteArray[i]) {
+      
+      if (!secondNote && chordMusic[chordMusic.indexOf(rootNote) + chords[chord].dis[0]] === noteArray[i]) {
         //console.log(noteArray[i])
         //console.log(match)
+        secondNote = !secondNote
         return noteArray[i]
                    
-      } else if (chordMusic[chordMusic.indexOf(rootNote) + chords[chord].dis[1]] === noteArray[i]) {
+      } else if (!thirdNote && chordMusic[chordMusic.indexOf(rootNote) + chords[chord].dis[1]] === noteArray[i]) {
         //console.log(noteArray[i])
         //console.log(match)
+        thirdNote = !thirdNote
         return noteArray[i]
         
+      } else if (!fourthNote && noteArray.length === 4 && chordMusic[chordMusic.indexOf(rootNote) + chords[chord].dis[2]] === noteArray[i]) {
+        fourthNote = !fourthNote
+        return noteArray[i]
       } 
     })
     //console.log(match)
-    if (match.length === 2) {
+    if (match.length === noteArray.length - 1) {
       match.push(rootNote)
       return false
     } else return true
