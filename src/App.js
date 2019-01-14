@@ -37,22 +37,13 @@ class App extends Component {
     this.state = {
       user: null,
       flashMessage: '',
-      flashType: null,
-      mode: 'Highlight',
-      chordName: ''
+      flashType: null
     }
-    this.setMode = this.setMode.bind(this)
-    this.updateChordName = this.updateChordName.bind(this)
+    
 
   }
 
-  setMode (e) {
-    this.setState({mode: e})
-  }
 
-  updateChordName (name) {
-    this.setState({chordName: 'Chord: ' + name})
-  }
 
   setUser = user => this.setState({ user })
 
@@ -90,12 +81,7 @@ class App extends Component {
                       <ChangePassword flash={this.flash} user={user} />
                     )} /> */}
           
-          <DropdownButton noCaret title={this.state.mode} key='mode-change' id='mode-change' className="text-center center-block pull-right">
-            
-            <MenuItem onSelect={this.setMode} eventKey={'Sound'} >Sound</MenuItem>
-            <MenuItem onSelect={this.setMode} eventKey={'Highlight'} >Highlight</MenuItem>
-            
-          </DropdownButton>
+          
 
           <h1>{}</h1>                    
 
@@ -105,8 +91,8 @@ class App extends Component {
               title={tuning.title + '   ' + this.state.chordName}
               strings={tuning.strings}
               notes={tuning.notes}
-              mode={this.state.mode}
-              chordNameHandler={this.updateChordName}
+              
+              
             />
           ))}  
         </main>

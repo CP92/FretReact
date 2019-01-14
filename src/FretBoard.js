@@ -21,7 +21,9 @@ class FretBoard extends Component {
     this.state = {
       notes: props.notes,
       selected: [],
-      selectedRow: []
+      selectedRow: [],
+      mode: 'Chord Namer',
+      chordName: ''
     }
 
     this.playNote = this.playNote.bind(this)
@@ -32,6 +34,17 @@ class FretBoard extends Component {
 
     this.addSelected = this.addSelected.bind(this)
 
+    this.setMode = this.setMode.bind(this)
+    this.updateChordName = this.updateChordName.bind(this)
+
+  }
+
+  setMode (e) {
+    this.setState({mode: e})
+  }
+
+  updateChordName (name) {
+    this.setState({chordName: 'Chord: ' + name})
   }
 
   addSelected (row, note, selected) {
@@ -60,11 +73,11 @@ class FretBoard extends Component {
 
 
     if (hasMultiple) {
-      this.props.chordNameHandler('Too many notes per string')
+      this.updateChordName('Too many notes per string')
     } else if (chord === undefined) {
-      this.props.chordNameHandler('')
+      this.updateChordName('')
     } else {
-      this.props.chordNameHandler(chord)
+      this.updateChordName(chord)
     }
 
   }
@@ -110,15 +123,24 @@ class FretBoard extends Component {
     this.setState((state, props) => ({
       notes: set
     })) 
-  }	
+  }
+
+
 
   render () {
   	const { title, strings, mode, notes } = this.props
     
     return (
       <div>
-      	<h1>{title}</h1>
-        
+      	<h1>{this.state.chordName}</h1>
+        <div className='mode'>
+          <DropdownButton noCaret title={this.state.mode} key='mode-change' id='mode-change' className="text-center center-block float-right">
+              
+            <MenuItem onSelect={this.setMode} eventKey={'Sound'} >Sound</MenuItem>
+            <MenuItem onSelect={this.setMode} eventKey={'Chord Namer'} >Chord Namer</MenuItem>
+              
+          </DropdownButton>
+        </div>
       	<Grid className="fretboard">
           {this.state.notes.map((set, rowIndex) => (
             <FretboardString 
@@ -128,7 +150,7 @@ class FretBoard extends Component {
               playNoteHandler={this.playNote}
               addSelectedHandler={this.addSelected}
               last={rowIndex === this.state.notes.length -1 ? true : false}
-              mode={mode}
+              mode={this.state.mode}
               key={rowIndex}
             />
 
