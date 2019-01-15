@@ -53,9 +53,9 @@ class Fret extends Component {
     return (
       <Col key={`fret-${row}-${colIndex}`} id={`fret-${row}-${colIndex}`} sx={1} className={colIndex === 0 ? 'tuner-box box text-center' : 'box text-center'}>
         {/*If the current iteration is the first column, set it to a tuner drop down box, else set it to a fret*/}
-        {colIndex !== 0 ? <hr style={color} className="text-center center-block"/> : <Button className='string-button' onClick={mode === 'Sound' ? (e) => playNoteHandler(e, `${row}-${colIndex}`) : (e) => this.changeSelect(row, note, addSelectedHandler, colIndex, stringSelectedHandler, string) }>String</Button>}
+        {colIndex !== 0 ? <hr style={color} className="text-center center-block"/> : <Button className='text-center string-button' onClick={mode === 'Sound' ? (e) => playNoteHandler(e, `${row}-${colIndex}`) : (e) => this.changeSelect(row, note, addSelectedHandler, colIndex, stringSelectedHandler, string) }>String</Button>}
         {colIndex === 0 ? 
-          <DropdownButton noCaret title={note} key={`tuner-${row}`} id={`tuner-${row}`} className="text-center center-block">
+          <DropdownButton noCaret title={note} key={`tuner-${row}`} id={`tuner-${row}`} className="text-center center-block tuner-button">
             <MenuItem eventKey={note} active >{note}</MenuItem>
             <MenuItem onSelect={changeRowHandler} eventKey={row + '-A '} >A</MenuItem>
             <MenuItem onSelect={changeRowHandler} eventKey={row + '-A#'} >A#</MenuItem>

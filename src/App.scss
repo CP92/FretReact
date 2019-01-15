@@ -74,7 +74,7 @@ h1.chord {
 
 .mode {
   border: solid;
-  border-width: 2px;
+  border-width: 1px;
   text-align: center;
   width: 150px;
   left: 24px;
@@ -82,6 +82,7 @@ h1.chord {
   padding-right: 15px;
   margin-bottom: 5px;
   background-color: yellow;
+  font-size: 1em;
 }
 
 .note {
@@ -140,9 +141,18 @@ hr {
 }
 
 .string-button {
-  margin-right: 5px;
-  margin-left: 8px;
+  margin-right: 1px;
+  margin-left: 10px;
+  padding-right: 9px;
+  padding-left: 7px;
+  width: 53%
+}
+
+.tuner-button {
+  
+  margin-right: 0px;
   padding-right: 5px;
+  background-color: yellow;
 }
 
 .fretboard {

@@ -47,7 +47,7 @@ const chords = {
 }
 
 const getChordName = function (noteArray) {
-  console.log(noteArray)
+  
 
   let chordName  
   // Attempts to see if the notes are a power chord
@@ -95,7 +95,7 @@ const getChordName = function (noteArray) {
     
   } else if (noteArray.length === 4) {
     let match
-    console.log(noteArray)
+    
     match = checkThreeNoteChord(noteArray, 'Major6th')
     if (match.length === 4) {
       chordName = match.pop() + ' Major 6th'
@@ -287,7 +287,7 @@ const getHigherNoteFreq = function (highestNote, divider, note, stringSet) {
   for (let i = 0; i < getNoteIndexDistance(highestNote, note, stringSet); i++) {
     noteFreq = noteFreq * 1.05946309
   }
-  console.log(noteFreq)
+  
   return noteFreq
 }
 
@@ -298,7 +298,7 @@ const getLowerNoteFreq = function (highestNote, divider, note, stringSet) {
   for (let i = 0; i < getNoteIndexDistance(highestNote, note, stringSet); i++) {
     noteFreq = noteFreq / 1.05946309
   }
-  console.log(noteFreq)
+  
   return noteFreq
 }
 
@@ -306,8 +306,7 @@ const getNextFreq = function (string, num, note, noteSet) {
   // Find the octave, start with highest possible note  
   const highestNote = noteSet[0][noteSet[0].length - 1]
   // Determine if the clicked on note is higher or lower in the array than the octave
-  console.log(noteSet[string].indexOf(note))
-  console.log(noteSet[string].indexOf(highestNote))
+  
   if (noteSet[string].indexOf(note) > noteSet[string].indexOf(highestNote)) {
     
     let noteFreq = null
@@ -323,7 +322,7 @@ const getNextFreq = function (string, num, note, noteSet) {
       noteFreq = getHigherNoteFreq(highestNote, 4, note, noteSet[string])
     }
       
-    console.log(noteFreq)
+    
     return noteFreq
   } else if (noteSet[string].indexOf(note) <= noteSet[string].indexOf(highestNote)) {
     let noteFreq =null
