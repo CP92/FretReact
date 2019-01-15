@@ -83,7 +83,17 @@ class App extends Component {
           
           
 
-          <h1>{}</h1>                    
+          <h1 className='title text-center'>
+            <span style={{color: 'blue'}}>F</span>
+            <span style={{color: 'black'}}>r</span>
+            <span style={{color: 'blue'}}>e</span>
+            <span style={{color: 'black'}}>t</span>
+            <span style={{color: 'blue'}}>R</span>
+            <span style={{color: 'black'}}>e</span>
+            <span style={{color: 'blue'}}>a</span>
+            <span style={{color: 'black'}}>c</span>
+            <span style={{color: 'blue'}}>t</span>
+          </h1>                    
 
           {defaultTuning.map(tuning => (
             <FretBoard 
