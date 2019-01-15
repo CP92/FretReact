@@ -10,7 +10,7 @@ import FretboardString from './fretboardstring.js'
 
 const noteToolBox = require('./notes.js')
 
-const letter = null
+
 
 
 
@@ -23,7 +23,7 @@ class FretBoard extends Component {
       selected: [],
       selectedRow: [],
       mode: 'Chord Namer',
-      chordName: ''
+      chordName: 'Chord: '
     }
 
     this.playNote = this.playNote.bind(this)
@@ -50,28 +50,21 @@ class FretBoard extends Component {
   addSelected (row, note, selected) {
     const selectedNotes = this.state.selected
     const selectedRow = this.state.selectedRow
-    //console.log(selectedNotes)
+    
     if (selected) {
       selectedNotes.push(note)
-      //console.log(selectedNotes)
       selectedRow.push(row)
       this.setState({selected: selectedNotes})
       this.setState({selectedRow: selectedRow})
-
     } else {
       selectedRow.splice(selectedRow.indexOf(row), 1)
       selectedNotes.splice(selectedNotes.indexOf(note), 1)
       this.setState({selected: selectedNotes})
       this.setState({selectedRow: selectedRow})
     }
-    console.log(selectedNotes)
-    console.log(selectedRow)
 
     const hasMultiple = (new Set(selectedRow)).size !== selectedRow.length
     const chord = noteToolBox.getChordName(selectedNotes)
-    //console.log(chord)
-
-
     if (hasMultiple) {
       this.updateChordName('Too many notes per string')
     } else if (chord === undefined) {
@@ -83,17 +76,15 @@ class FretBoard extends Component {
   }
 
   playNote (e, id) {
-    
     id = id.split('-')
     const noteClicked = e.target.innerText
     let num = 11 - id[1]
     const string = parseInt(id[0])
     num = num + (12 * id[0])
-    //console.log(string)
+    
     const noteToPlay = noteToolBox.getNextFreq(string, num, noteClicked, this.state.notes)
 
     noteToolBox.loadAudio(noteToPlay)
-    
   }
 
   changeRow (e) {
@@ -132,9 +123,9 @@ class FretBoard extends Component {
     
     return (
       <div>
-      	<h1>{this.state.chordName}</h1>
-        <div className='mode'>
-          <DropdownButton noCaret title={this.state.mode} key='mode-change' id='mode-change' className="text-center center-block float-right">
+      	<h1 className='chord'>{this.state.chordName}</h1>
+        <div className='board'>
+          <DropdownButton noCaret title={this.state.mode} key='mode-change' id='mode-change' className="text-center mode">
               
             <MenuItem onSelect={this.setMode} eventKey={'Sound'} >Sound</MenuItem>
             <MenuItem onSelect={this.setMode} eventKey={'Chord Namer'} >Chord Namer</MenuItem>
@@ -153,9 +144,7 @@ class FretBoard extends Component {
               mode={this.state.mode}
               key={rowIndex}
             />
-
           ))}
-          
         </Grid>
 
         <button onClick={this.addString} type="button" className="btn btn-success btn-md" id="add-string">
@@ -164,9 +153,6 @@ class FretBoard extends Component {
         <button onClick={this.removeString} type="button" className="btn btn-danger btn-md float-right" id="remove-string">
           <span className="fas fa-minus-square" aria-hidden="true"></span> Remove String
         </button>
-      	
-      	
-
       </div>
     )
   }

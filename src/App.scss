@@ -49,6 +49,12 @@ $charcoal: #ccc;
 
 }
 
+.board {
+  display: flex;
+  flex-flow: row-reverse;
+
+}
+
 .center-block {
    margin-left:auto;
    margin-right:auto;
@@ -61,9 +67,21 @@ $charcoal: #ccc;
       align-items: center;
 }
 
-#mode-change {
+h1.chord {
+  float: left;
+  margin-bottom: 0px;
+}
+
+.mode {
   border: solid;
+  border-width: 2px;
   text-align: center;
+  width: 150px;
+  left: 24px;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-bottom: 5px;
+  background-color: yellow;
 }
 
 .note {
@@ -89,6 +107,13 @@ $charcoal: #ccc;
   width: 75%;
 }
 
+.tuner {
+  padding-left: 50px;
+  margin-right: 0px;
+}
+
+
+
 .box {
   
   border-right-color: #c0c0c0;
@@ -107,6 +132,16 @@ margin-right: auto;
 
 
 border: 0 none;
+}
+
+.tuner-string {
+  width: 50px;
+}
+
+.string-button {
+  margin-right: 5px;
+  margin-left: 8px;
+  padding-right: 5px;
 }
 
 .fretboard {

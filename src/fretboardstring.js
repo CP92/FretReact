@@ -8,7 +8,6 @@ import MenuItem from 'react-bootstrap/lib/MenuItem'
 
 import Fret from './fret.js'
 
-
 const noteToolBox = require('./notes.js')
 
 const letter = null

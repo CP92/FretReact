@@ -52,40 +52,40 @@ const getChordName = function (noteArray) {
   let chordName  
   // Attempts to see if the notes are a power chord
   if (noteArray.length === 2) {
-    //console.log('testing power chord')
+    
     noteArray.forEach(function (note, index) {
       if (chordMusic[chordMusic.indexOf(note) + chords.powerChord.dis] === noteArray[(index + 1) % noteArray.length]) {
         chordName = note + ' Power chord'
-        
       }       
     })
     return chordName
   } else if (noteArray.length === 3) {
+    // Attemps to see if the notes equal 3 or four note chords.
+
     let match
-    
     match = checkThreeNoteChord(noteArray, 'Major')
-    //console.log(match)
+    
     if (match.length === 3) {
       chordName = match.pop() + ' Major'
       return chordName
     } else {
       match = checkThreeNoteChord(noteArray, 'Minor')
     }
-    //console.log(match)
+    
     if (match.length === 3) {
       chordName = match.pop() + ' Minor'
       return chordName
     } else {
       match = checkThreeNoteChord(noteArray, 'Diminished') 
     }
-    //console.log(match)
+    
     if (match.length === 3) {
       chordName = match.pop() + ' Diminished'
       return chordName
     } else {
       match = checkThreeNoteChord(noteArray, 'Augmented') 
     }
-    //console.log(match)
+    
     if (match.length === 3) {
       chordName = match.pop() + ' Augmented'
       return chordName
@@ -166,23 +166,19 @@ const checkThreeNoteChord = function (noteArray, chord) {
       const i = (index + 1) % noteArray.length
       
       if (!secondNote && chordMusic[chordMusic.indexOf(rootNote) + chords[chord].dis[0]] === noteArray[i]) {
-        //console.log(noteArray[i])
-        //console.log(match)
+        
         secondNote = !secondNote
         return noteArray[i]
-                   
       } else if (!thirdNote && chordMusic[chordMusic.indexOf(rootNote) + chords[chord].dis[1]] === noteArray[i]) {
-        //console.log(noteArray[i])
-        //console.log(match)
+        
         thirdNote = !thirdNote
         return noteArray[i]
-        
       } else if (!fourthNote && noteArray.length === 4 && chordMusic[chordMusic.indexOf(rootNote) + chords[chord].dis[2]] === noteArray[i]) {
         fourthNote = !fourthNote
         return noteArray[i]
       } 
     })
-    //console.log(match)
+    
     if (match.length === noteArray.length - 1) {
       match.push(rootNote)
       return false
@@ -206,13 +202,10 @@ const getRowNotes = function (note) {
 }
 
 const getFourth = function (note) {
-  //note = note.replace(/\s/g, '')
-  //console.log(note)
+  
   if (musicNotes.indexOf(note) - 5 < 0) {
-    //console.log(musicNotes[((musicNotes.indexOf(note) - 5) + 12)])
     return musicNotes[((musicNotes.indexOf(note) - 5) + 12)]
   } else {
-    //console.log(musicNotes[musicNotes.indexOf(note) - 5])
     return musicNotes[musicNotes.indexOf(note) - 5]
   }
 
@@ -289,7 +282,7 @@ const getNoteIndexDistance = function (octave, current, noteArray) {
 
 const getHigherNoteFreq = function (highestNote, divider, note, stringSet) {
   const octave = octaves[5][highestNote] / divider
-  console.log(octave)
+ 
   let noteFreq = octave
   for (let i = 0; i < getNoteIndexDistance(highestNote, note, stringSet); i++) {
     noteFreq = noteFreq * 1.05946309
@@ -300,7 +293,7 @@ const getHigherNoteFreq = function (highestNote, divider, note, stringSet) {
 
 const getLowerNoteFreq = function (highestNote, divider, note, stringSet) {
   const octave = octaves[5][highestNote] / divider
-  console.log(octave)
+  
   let noteFreq = octave
   for (let i = 0; i < getNoteIndexDistance(highestNote, note, stringSet); i++) {
     noteFreq = noteFreq / 1.05946309
@@ -316,7 +309,7 @@ const getNextFreq = function (string, num, note, noteSet) {
   console.log(noteSet[string].indexOf(note))
   console.log(noteSet[string].indexOf(highestNote))
   if (noteSet[string].indexOf(note) > noteSet[string].indexOf(highestNote)) {
-    //console.log((string + 1))
+    
     let noteFreq = null
     if (string === 0) {
       noteFreq = getHigherNoteFreq(highestNote, 1, note, noteSet[string])
@@ -346,15 +339,9 @@ const getNextFreq = function (string, num, note, noteSet) {
       noteFreq = getLowerNoteFreq(highestNote, 4, note, noteSet[string])
     }
       
-    console.log(noteFreq)
     return noteFreq
   }
-  console.log(noteSet)
-  console.log(note)
-  //console.log(num)
-  console.log(highestNote)
-  
-  
+    
 }
 
 const loadAudio = function (tone) {
